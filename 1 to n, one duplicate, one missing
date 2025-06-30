@@ -1,0 +1,21 @@
+def find_duplicate_missing(arr):
+    n = len(arr)
+    S = sum(arr)
+    S_expected = n * (n + 1) // 2
+    P = sum(x*x for x in arr)
+    P_expected = n * (n + 1) * (2*n + 1) // 6
+
+    diff = S - S_expected  # dup - miss
+    sq_diff = P - P_expected  # dup² - miss²
+
+    # (dup - miss) and (dup + miss)
+    sum_dup_miss = sq_diff // diff
+
+    dup = (diff + sum_dup_miss) // 2
+    miss = dup - diff
+
+    return dup, miss
+
+if __name__ == "__main__":
+    arr = [1, 2, 2, 4, 5]
+    print(find_duplicate_missing(arr))
